@@ -1,0 +1,49 @@
+<h2>{{seminar.title}} - {{formatDate seminar.date}}</h2>
+
+<p>Katılım Oranı: <strong>%{{attendanceRate}}</strong> </p>
+
+<hr>
+<h3>Rapor Al</h3>
+<a href="/seminar/{{seminar.id}}/stats?format=json" target="_blank">
+    <button>📄 JSON Rapor</button>
+</a>
+
+<a href="/seminar/{{seminar.id}}/stats?format=pdf" target="_blank">
+    <button>🖨️ PDF Rapor</button>
+</a>
+<h3>Katılımcı Listesi</h3>
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Ad Soyad</th>
+            <th>Durum</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each participants}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>
+                    {{#if this.attended}} ✅ Katıldı
+                    {{else}} ❌ Katılmadı
+                    {{/if}}
+                </td>
+            </tr>
+            {{/each}}
+    </tbody>
+</table>
+
+<hr>
+
+<h3>Katılımı İşaretle</h3>
+<form action="/attendance" method="POST">
+    <label for="participantId">Katılımcı Seç:</label>
+    <select name="participantId" id="participantId" required>
+        {{#each participants}}
+            <option value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <input type="hidden" name="seminarId" value="{{seminar.id}}">
+    <button type="submit">Katılımcı Etkinliği İşaretle</button>
+</form>

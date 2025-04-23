@@ -1,0 +1,17 @@
+<h2>
+    Mevcut Eğitim Seminerleri
+</h2>
+
+{{#if seminars.length}}
+    <ul>
+        {{#each seminars}}
+            <li>
+                <strong>{{title}}</strong> - {{formatDate date}} <br>
+                <a href="/seminar/{{id}}">Katılımcıları Görüntüle</a> 
+            </li>
+            <hr>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>Henüz Kayıtlı Seminer Bulunmamaktadır.</p>
+{{/if}}
